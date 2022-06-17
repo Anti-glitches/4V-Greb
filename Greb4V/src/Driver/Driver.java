@@ -6,36 +6,38 @@ import java.util.ArrayList;
 public class Driver {
 
     ArrayList<DriverProfile> driver = new ArrayList<DriverProfile>();
-    String lastUpdatedTime;
+    String lastUpdatedTime; 
 
-    //experimental
-    public ArrayList<DriverProfile> referDriver() {
+    //this method is for refering to the driver array inside Driver class
+    public ArrayList<DriverProfile> getDriverArray() {
         return driver;
     }
-    //until here
 
+    //this is to add customer to the customer array and set last updated time
     public void add(DriverProfile e, String lastUpdateTime) {
         this.lastUpdatedTime = lastUpdateTime;
 
         driver.add(e);
     }
 
-    public void remove(String name, String lastUpdatedTime) {
+    //this is to remove driver from driver array
+    public void remove(String driverName, String lastUpdatedTime) {
 
-        if (driver.size() == 0) {
+        if (driver.isEmpty()) {
             System.out.println("List is empty");
         } else {
             this.lastUpdatedTime = lastUpdatedTime;
 
             for (DriverProfile driverProfile : driver) {
-                if (findDriver(name)) {
-                    driver.remove(name);
+                if (driverProfile.getName().equals(driverName)) {
+                    driver.remove(driverProfile);
                     break;
                 }
             }
         }
     }
 
+    //this is to find driver by name in the driver array
     public boolean findDriver(String name) {
         for (DriverProfile driverProfile : driver) {
             if (name.equalsIgnoreCase(driverProfile.getName())) {
@@ -45,6 +47,7 @@ public class Driver {
         return false;
     }
 
+    //this is to find driver with "Available" status by name in the driver array
     public boolean findAvailableDriver(String name) {
         for (DriverProfile driverProfile : driver) {
             if (name.equalsIgnoreCase(driverProfile.getName()) && driverProfile.getStatus().equalsIgnoreCase("Available")) {
@@ -54,8 +57,10 @@ public class Driver {
         return false;
     }
 
+    //this is a method to set the status of driver as "Not Available" and to set
+    //customer name to DriverProfile
     public void assignCustomer(String driverName, String customerName, String lastUpdatedTime) { //updating location, customer, status
-        if (driver.size() == 0) {
+        if (driver.isEmpty()) {
             System.out.println("List is empty");
         } else {
             this.lastUpdatedTime = lastUpdatedTime;
@@ -71,6 +76,7 @@ public class Driver {
 
     }
 
+    //this is a method to set rating inputted by customer into DriverProfile
     public void rating(String driverName, double rating) {
         for (DriverProfile driverProfile : driver) {
             if (findDriver(driverName)) {
@@ -79,11 +85,8 @@ public class Driver {
             }
         }
     }
-    
-    public ArrayList<DriverProfile> getDriverArr(){
-        return driver;
-    }
 
+    //this is a method to display driver list
     public void display(String time) {
         System.out.println("Requests List (List Last Updated Time : " + lastUpdatedTime + ")");
         System.out.println("(Current time : " + time + " )");
