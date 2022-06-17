@@ -24,8 +24,10 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
 
+        // Looping back to the homepage
         do {
             homeDisplay();
+            input = scan.nextLine().toUpperCase();
 
             // add call class for admin, customer, add/remove
             switch (input) {
@@ -55,6 +57,7 @@ public class Main {
     public static void manageAdmin() {
         System.out.println("\nSystem Dashboard : \n");
         c.display(t.time());
+        System.out.println("");
         d.display(t.time());
     }
 
@@ -68,17 +71,17 @@ public class Main {
 
         switch (customerMenu) {
             case "A": {
-                createCustomer();
+                createCustomerProfile();
                 break;
             }
 
             case "B": {
-                updateCustomer();
+                updateCustomerProfile();
                 break;
             }
 
             case "C": {
-                rateCustomer();
+                rateDriverByCustomerProfile();
                 break;
             }
         }
@@ -90,20 +93,17 @@ public class Main {
 
         do {
             driverDisplay();
-
             String input;
-
             Scanner scan = new Scanner(System.in);
-
             input = scan.next().toUpperCase();
 
             switch (input) {
                 case "A": {
-                    createDriver();
+                    createDriverProfile();
                     break;
                 }
                 case "B": {
-                    deleteDriver();
+                    deleteDriverProfile();
                     break;
                 }
                 case "EXIT": {
@@ -119,12 +119,19 @@ public class Main {
 
     }
 
+    // Check if condition has been met for customer to be picked up and reached the destination 
+    // Change the status of customer with picked up and reached
+    // Change the status of driver from unavailable to available
+    // Change the customerName in driverProfile to empty once EAT exceeds currentTime
     public static void checkStatus(String time) {
-        for (CustomerProfile customerProfile : customer) {  
+
+        // Looping to check every customer in customerArray
+        for (CustomerProfile customerProfile : customer) {
             if (time.compareToIgnoreCase(customerProfile.getChosenEAT()) >= 0) {
                 System.out.println("checkStatus");
                 customerProfile.setStatus("Reached");
 
+                // Looping to check every driver in driverArray
                 for (DriverProfile driverProfile : driver) {
                     if (driverProfile.getCustomerName().equalsIgnoreCase(customerProfile.getName())) {
                         driverProfile.setStatus("Available");
@@ -143,10 +150,12 @@ public class Main {
 
     }
 
+    // Allow customerProfile to rate driverProfile
+    // The numerous if statements and for loop is to iterate and check everything in the customerArray and driverArray
     public static void rateDriver(String customerName) {
         Scanner scan = new Scanner(System.in);
 
-        if (c.findCustomer(customerName)) { //loop to find the customer
+        if (c.findCustomer(customerName)) {
             for (CustomerProfile customerProfile : customer) {
                 if (customerProfile.getName().equals(customerName)) {
                     String driverName = customerProfile.getChosenDriver();
@@ -158,7 +167,13 @@ public class Main {
 
                             try {
                                 double rating = scan.nextDouble();
-                                driverProfile.setRating(rating);
+
+                                if (rating >= 0 && rating <= 5) {
+                                    driverProfile.setRating(rating);
+                                } else{
+                                    throw new Exception("go to catch");
+                                }
+                                
                             } catch (Exception e) {
                                 System.out.println("*******************");
                                 System.out.println("*ERROR WRONG INPUT*");
@@ -184,8 +199,8 @@ public class Main {
         System.out.println("A - View System Dashboard");
         System.out.println("B - enter Customer View");
         System.out.println("C - Add / Remove Driver");
-        
-            System.out.print("\n>> ");
+
+        System.out.print("\n>> ");
     }
 
     public static void customerDisplay() {
@@ -197,7 +212,8 @@ public class Main {
         System.out.print("\n>> ");
     }
 
-    public static void createCustomer() {
+    // Create a new customer in the customerArray
+    public static void createCustomerProfile() {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Enter the details of the customer you want to create (name, Expected arrival time, capacity, starting point, destination)");
@@ -223,7 +239,7 @@ public class Main {
                         t.time());
                 scan.nextLine();
 
-                c.setDriverProfile(customerName, d.referDriver(), t.time());
+                c.setDriverProfile(customerName, d.getDriverArr(), t.time());
 
                 System.out.println("\nThe request is received, please choose your driver...");
 
@@ -249,7 +265,8 @@ public class Main {
         }
     }
 
-    public static void updateCustomer() {
+    // Update customer who has not chosen driver yet
+    public static void updateCustomerProfile() {
 
         Scanner scan = new Scanner(System.in);
         //update customer requests - for customers who have given details but exit to homepage
@@ -292,8 +309,8 @@ public class Main {
         }
     }
 
-    public static void rateCustomer() {
-
+    // Rate driver by customer who have reached their destination
+    public static void rateDriverByCustomerProfile() {
         Scanner scan = new Scanner(System.in);
         ArrayList<CustomerProfile> customer = c.getCustomerArray();
         ArrayList<DriverProfile> driver = d.getDriverArr();
@@ -328,58 +345,60 @@ public class Main {
         System.out.println("B - Remove driver");
         System.out.print("\n>> ");
     }
-    
-    public static void createDriver(){
-        
+
+    // Create a new customer in customerArray
+    public static void createDriverProfile() {
+
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the details of the driver you want to create (name, capacity, "
-                            + " location): ");
-                    System.out.println("(Enter \"exit\" to go back to homepage):");
-                    System.out.print("\n>> ");
+                + " location): ");
+        System.out.println("(Enter \"exit\" to go back to homepage):");
+        System.out.print("\n>> ");
 
-                    //this is the hard coded
+        //this is the hard coded
 //                    d.add(new DriverProfile("John", 5, 3.1174, 101.6781), t.time());
 //                    d.display(t.time());
-                    // this is the soft code/input
-                    try {
-                        String driverName = scan.next();
+        // this is the soft code/input
+        try {
+            String driverName = scan.next();
 
-                        if (!driverName.equalsIgnoreCase("exit")) {
-                            int cap = scan.nextInt();
-                            String[] iniLatLan = scan.next().split(",");
-                            double iniLat = Double.parseDouble(iniLatLan[0]);
-                            double iniLan = Double.parseDouble(iniLatLan[1]);
+            if (!driverName.equalsIgnoreCase("exit")) {
+                int cap = scan.nextInt();
+                String[] iniLatLan = scan.next().split(",");
+                double iniLat = Double.parseDouble(iniLatLan[0]);
+                double iniLan = Double.parseDouble(iniLatLan[1]);
 
-                            d.add(new DriverProfile(driverName, cap, iniLat, iniLan), t.time());
+                d.add(new DriverProfile(driverName, cap, iniLat, iniLan), t.time());
 
-                            d.display(t.time());
-                        }
-                    } catch (Exception e) {
-                        System.out.println("*******************");
-                        System.out.println("*ERROR WRONG INPUT*");
-                        System.out.println("*******************");
-                    }
+                d.display(t.time());
+            }
+        } catch (Exception e) {
+            System.out.println("*******************");
+            System.out.println("*ERROR WRONG INPUT*");
+            System.out.println("*******************");
+        }
     }
-    
-    public static void deleteDriver() {
+
+    // Delete driver from driverProfile
+    public static void deleteDriverProfile() {
         System.out.println("");
-                    Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
 
-                    d.display(t.time());
+        d.display(t.time());
 
-                    System.out.println("\nEnter the driver name you want to delete (Enter \"Exit\" to go back to homepage): ");
-                    System.out.print(">> ");
+        System.out.println("\nEnter the driver name you want to delete (Enter \"Exit\" to go back to homepage): ");
+        System.out.print(">> ");
 
-                    try {
-                        d.remove(scan.nextLine(), t.time());
+        try {
+            d.remove(scan.nextLine(), t.time());
 
-                        System.out.println("");
-                    } catch (Exception e) {
-                        System.out.println("*******************");
-                        System.out.println("*ERROR WRONG INPUT*");
-                        System.out.println("*******************");
-                    }
+            System.out.println("");
+        } catch (Exception e) {
+            System.out.println("*******************");
+            System.out.println("*ERROR WRONG INPUT*");
+            System.out.println("*******************");
+        }
 
-                    d.display(t.time());
+        d.display(t.time());
     }
 }
