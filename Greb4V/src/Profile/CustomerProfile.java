@@ -9,6 +9,7 @@ public class CustomerProfile extends Profile {
     private double finalLatitude, finalLongitude;
     private String chosenEAT;
     private String status;
+    private boolean hasRated;
     private String chosenDriver; //this is where the chosen driver resides for rating
     private int customerToDestinationTime; //this is where we store the time from customer to destination
     private ArrayList<DriverProfile> driver; //this is all the driver array
@@ -109,4 +110,14 @@ public class CustomerProfile extends Profile {
         return allPossibleEAT.get(index);
     }
 
+    public boolean isHasRated() {
+        return hasRated;
+    }
+
+    public void setHasRated(boolean hasRated) {
+        this.hasRated = hasRated;
+    }
+
+    
+    
 }

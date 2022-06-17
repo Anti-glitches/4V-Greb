@@ -14,7 +14,7 @@ public class Main {
     public static Driver d = new Driver();
     public static Time t = new Time();
     public static ArrayList<CustomerProfile> customer = c.getCustomerArray();
-    public static ArrayList<DriverProfile> driver = d.getDriverArr();
+    public static ArrayList<DriverProfile> driver = d.getDriverArray();
 
     public static void main(String[] args) {
 
@@ -170,6 +170,7 @@ public class Main {
 
                                 if (rating >= 0 && rating <= 5) {
                                     driverProfile.setRating(rating);
+                                    customerProfile.setHasRated(true);
                                 } else{
                                     throw new Exception("go to catch");
                                 }
@@ -239,7 +240,7 @@ public class Main {
                         t.time());
                 scan.nextLine();
 
-                c.setDriverProfile(customerName, d.getDriverArr(), t.time());
+                c.setDriverProfile(customerName, d.getDriverArray(), t.time());
 
                 System.out.println("\nThe request is received, please choose your driver...");
 
@@ -313,12 +314,12 @@ public class Main {
     public static void rateDriverByCustomerProfile() {
         Scanner scan = new Scanner(System.in);
         ArrayList<CustomerProfile> customer = c.getCustomerArray();
-        ArrayList<DriverProfile> driver = d.getDriverArr();
+        ArrayList<DriverProfile> driver = d.getDriverArray();
 
         System.out.println("\nRate Your Driver: ");
 
         for (CustomerProfile customerProfile : customer) {
-            if (customerProfile.getStatus().equals("Reached")) {
+            if (customerProfile.getStatus().equals("Reached") && !customerProfile.isHasRated()) {
                 System.out.print(customerProfile.getName() + " | " + customerProfile.getChosenDriver() + "\n");
 
             }
