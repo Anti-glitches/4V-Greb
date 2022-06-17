@@ -63,7 +63,7 @@ public class Driver {
             for (DriverProfile driverProfile : driver) {
                 if (driverProfile.getName().equals(driverName)) {
                     driverProfile.setStatus("Not Available");
-                    driverProfile.setCustomer(customerName);
+                    driverProfile.setCustomerName(customerName);
                     break;
                 }
             }
@@ -94,7 +94,7 @@ public class Driver {
         for (DriverProfile driverProfile : driver) {
             System.out.printf("%-20s %-20s %-20s %-20s %-20s %-20s\n", driverProfile.getName(), driverProfile.getStatus(),
                     driverProfile.getCapacity(), driverProfile.getInitialLatitude() + "," + driverProfile.getInitialLongitude(),
-                    driverProfile.getCustomer(), driverProfile.getRating());
+                    driverProfile.getCustomerName(), driverProfile.getRating());
         }
 
         System.out.println("===================================================================================================================");

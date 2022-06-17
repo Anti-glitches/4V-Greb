@@ -13,7 +13,7 @@ public class Main {
     public static Customer c = new Customer();
     public static Driver d = new Driver();
     public static Time t = new Time();
-    public static ArrayList<CustomerProfile> customer = c.getCustomerArr();
+    public static ArrayList<CustomerProfile> customer = c.getCustomerArray();
     public static ArrayList<DriverProfile> driver = d.getDriverArr();
 
     public static void main(String[] args) {
@@ -26,9 +26,6 @@ public class Main {
 
         do {
             homeDisplay();
-
-
-            input = scan.nextLine().toUpperCase();
 
             // add call class for admin, customer, add/remove
             switch (input) {
@@ -123,17 +120,17 @@ public class Main {
     }
 
     public static void checkStatus(String time) {
-        for (CustomerProfile customerProfile : customer) {
+        for (CustomerProfile customerProfile : customer) {  
             if (time.compareToIgnoreCase(customerProfile.getChosenEAT()) >= 0) {
                 System.out.println("checkStatus");
                 customerProfile.setStatus("Reached");
 
                 for (DriverProfile driverProfile : driver) {
-                    if (driverProfile.getCustomer().equalsIgnoreCase(customerProfile.getName())) {
+                    if (driverProfile.getCustomerName().equalsIgnoreCase(customerProfile.getName())) {
                         driverProfile.setStatus("Available");
-                        driverProfile.setInitialLatitude(customerProfile.getFiLan());
-                        driverProfile.setInitialLongitude(customerProfile.getFiLong());
-                        driverProfile.setCustomer("");
+                        driverProfile.setInitialLatitude(customerProfile.getFinalLatitude());
+                        driverProfile.setInitialLongitude(customerProfile.getFinalLongitude());
+                        driverProfile.setCustomerName("");
                         break;
                     }
                 }
@@ -267,7 +264,7 @@ public class Main {
         if (c.findCustomer(customerName)) {
             System.out.println("\nThe request is received, please choose your driver...");
 
-            c.displayRatingDriver(c.getCap(customerName), t.time(), customerName);
+            c.displayRatingDriver(c.getCapacity(customerName), t.time(), customerName);
 
             System.out.println("\nEnter the driver name you want to select (Enter \"exit\" to go back to homepage):");
             System.out.print("\n>> ");
@@ -298,7 +295,7 @@ public class Main {
     public static void rateCustomer() {
 
         Scanner scan = new Scanner(System.in);
-        ArrayList<CustomerProfile> customer = c.getCustomerArr();
+        ArrayList<CustomerProfile> customer = c.getCustomerArray();
         ArrayList<DriverProfile> driver = d.getDriverArr();
 
         System.out.println("\nRate Your Driver: ");
