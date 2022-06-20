@@ -10,10 +10,10 @@ public class DriverProfile extends Profile {
     public DriverProfile(String name, int capacity, double initialLatitude, double initialLongitude) {
         super(name, capacity, initialLatitude, initialLongitude);
         status = "Available";
-        rating = round((sumOfAllRating/ratingCount), 1); //we initialise the driver rating to be 5.0
         ratingCount = 1; //this is a counter for the number of time a driver is rated
         customerName = ""; //customer name is initialised as empty string
         sumOfAllRating = 5.0; //the sum of all rating
+        rating = round((sumOfAllRating/ratingCount), 1); //we initialise the driver rating to be 5.0
     }
 
     public double getRating() {
