@@ -171,10 +171,10 @@ public class Main {
                                 if (rating >= 0 && rating <= 5) {
                                     driverProfile.setRating(rating);
                                     customerProfile.setHasRated(true);
-                                } else{
+                                } else {
                                     throw new Exception("go to catch");
                                 }
-                                
+
                             } catch (Exception e) {
                                 System.out.println("*******************");
                                 System.out.println("*ERROR WRONG INPUT*");
@@ -226,16 +226,16 @@ public class Main {
             if (!customerName.equalsIgnoreCase("exit")) {
                 // this is the soft code/input
 
-                        String EAT = scan.next();
-                        int cap = scan.nextInt();
-                        String[] iniLatLan = scan.next().split(",");
-                        double iniLat = Double.parseDouble(iniLatLan[0]);
-                        double iniLan = Double.parseDouble(iniLatLan[1]);
-                        String[] finLatLan = scan.next().split(",");
-                        double finLat = Double.parseDouble(finLatLan[0]);
-                        double finLan = Double.parseDouble(finLatLan[1]);
-                        c.add(new CustomerProfile(customerName, EAT, cap, iniLat, iniLan, finLat, finLan),
-                                t.time());
+                String EAT = scan.next();
+                int cap = scan.nextInt();
+                String[] iniLatLan = scan.next().split(",");
+                double iniLat = Double.parseDouble(iniLatLan[0]);
+                double iniLan = Double.parseDouble(iniLatLan[1]);
+                String[] finLatLan = scan.next().split(",");
+                double finLat = Double.parseDouble(finLatLan[0]);
+                double finLan = Double.parseDouble(finLatLan[1]);
+                c.add(new CustomerProfile(customerName, EAT, cap, iniLat, iniLan, finLat, finLan),
+                        t.time());
 //                c.add(new CustomerProfile(customerName, "0000", 4, 3.1209, 101.6538, 3.1174, 101.6781), t.time());
                 scan.nextLine();
 
@@ -243,8 +243,8 @@ public class Main {
 
                 System.out.println("\nThe request is received, please choose your driver...");
 
-//                        c.displayRatingDriver(c.getCap(customerName), t.time(), customerName);
-                c.displayRatingDriver(cap, t.time(), customerName);
+                c.displayRatingDriver(c.getCapacity(customerName), t.time(), customerName);
+
                 System.out.println("\nEnter the driver name you want to select (Enter \"exit\" to go back to homepage):");
                 System.out.print("\n>> ");
                 String driverName = scan.nextLine();
@@ -316,7 +316,7 @@ public class Main {
         ArrayList<DriverProfile> driver = d.getDriverArray();
 
         System.out.println("\nRate Your Driver: \n");
-        
+
         System.out.println("====================================");
         System.out.printf("%-20s %-20s \n", "Customer", "Driver to rate");
 
@@ -328,7 +328,6 @@ public class Main {
             }
         }
         System.out.println("====================================");
-        
 
         System.out.println("\nEnter the customer name (Enter \"exit\" to go back to homepage):");
         System.out.print("\n>> ");
