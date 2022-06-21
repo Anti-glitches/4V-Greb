@@ -29,12 +29,8 @@ public class Driver {
             this.lastUpdatedTime = lastUpdatedTime;
 
             for (DriverProfile driverProfile : driver) {
-                if (driverProfile.getName().equals(driverName) && driverProfile.getStatus().equalsIgnoreCase("Available")) {
+                if (driverProfile.getName().equals(driverName)) {
                     driver.remove(driverProfile);
-                    break;
-                }
-                else if(driverProfile.getName().equals(driverName) && driverProfile.getStatus().equalsIgnoreCase("Not Available")){
-                    System.out.println("\nDriver is currently picking up customer. Unable to remove driver");
                     break;
                 }
             }
