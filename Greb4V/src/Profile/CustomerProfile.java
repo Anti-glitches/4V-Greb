@@ -8,6 +8,7 @@ public class CustomerProfile extends Profile {
     Calculation calc = new Calculation();
     private double finalLatitude, finalLongitude;
     private String chosenEAT;
+    private String customerPickedUp;
     private String status;
     private boolean hasRated;
     private String chosenDriver; //this is where the chosen driver resides for rating
@@ -16,7 +17,7 @@ public class CustomerProfile extends Profile {
     private ArrayList<String> driverName = new ArrayList<>(); //this is for time calc && you can just driver.get(i).getName()
     private ArrayList<Integer> driverToCustomerTime = new ArrayList<>(); //this is where we store the time from driver to customer
     private ArrayList<String> allPossibleEAT = new ArrayList<>(); //this is the list of all the EAT for all drivers so the customer can choose
-    
+
     //this is the constructor
     public CustomerProfile(String name, String EAT, int capacity, double initialLatitude, double initialLongitude, double finalLatitude, double finalLongitude) {
         super(name, capacity, initialLatitude, initialLongitude);
@@ -26,7 +27,7 @@ public class CustomerProfile extends Profile {
         this.status = "Pending";
         this.chosenDriver = "";
     }
-    
+
     public String getChosenDriver() {
         return chosenDriver;
     }
@@ -67,7 +68,7 @@ public class CustomerProfile extends Profile {
     }
 
     //this is a method to calculate the time from customer to destination
-    public void customerToDestination() { 
+    public void customerToDestination() {
         Calculation calc = new Calculation();
 
         double dis = calc.distance(getInitialLatitude(),
@@ -106,7 +107,7 @@ public class CustomerProfile extends Profile {
     }
 
     //this is a method to get a specific EAT to be displayed in the Customer class
-    public String getDriverEATBasedOnIndex(int index) {       
+    public String getDriverEATBasedOnIndex(int index) {
         return allPossibleEAT.get(index);
     }
 
@@ -117,7 +118,5 @@ public class CustomerProfile extends Profile {
     public void setHasRated(boolean hasRated) {
         this.hasRated = hasRated;
     }
-
-    
     
 }
