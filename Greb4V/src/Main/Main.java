@@ -244,7 +244,7 @@ public class Main {
                 System.out.println("\nThe request is received, please choose your driver...");
 
 //                        c.displayRatingDriver(c.getCap(customerName), t.time(), customerName);
-                c.displayRatingDriver(1, t.time(), customerName);
+                c.displayRatingDriver(cap, t.time(), customerName);
                 System.out.println("\nEnter the driver name you want to select (Enter \"exit\" to go back to homepage):");
                 System.out.print("\n>> ");
                 String driverName = scan.nextLine();
