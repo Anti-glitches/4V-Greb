@@ -128,7 +128,6 @@ public class Main {
         // Looping to check every customer in customerArray
         for (CustomerProfile customerProfile : customer) {
             if (time.compareToIgnoreCase(customerProfile.getChosenEAT()) >= 0) {
-                System.out.println("checkStatus");
                 customerProfile.setStatus("Reached");
 
                 // Looping to check every driver in driverArray
@@ -143,9 +142,14 @@ public class Main {
                 }
 
             } else if (time.compareToIgnoreCase(customerProfile.getChosenEAT()) < 0) {
-                System.out.println("picked up");
-                customerProfile.setStatus("Picked up");
-            }
+                for (DriverProfile driverProfile : driver) {
+                    if (driverProfile.getCustomerName().equalsIgnoreCase(customerProfile.getName())) {
+                        customerProfile.setStatus("Picked up");
+                        break;
+                    }
+
+                }
+            } 
         }
 
     }
@@ -243,8 +247,8 @@ public class Main {
 
                 System.out.println("\nThe request is received, please choose your driver...");
 
-                c.displayRatingDriver(c.getCapacity(customerName), t.time(), customerName);
-
+//                        c.displayRatingDriver(c.getCap(customerName), t.time(), customerName);
+                c.displayRatingDriver(1, t.time(), customerName);
                 System.out.println("\nEnter the driver name you want to select (Enter \"exit\" to go back to homepage):");
                 System.out.print("\n>> ");
                 String driverName = scan.nextLine();
@@ -288,8 +292,6 @@ public class Main {
             String driverName = scan.nextLine();
 
             if (d.findAvailableDriver(driverName)) {
-                System.out.println(driverName);
-                System.out.println(customerName);
                 d.assignCustomer(driverName, customerName, t.time());
                 c.status(customerName, t.time(), "Waiting");
                 c.asssignDriverTImeToEAT(customerName, driverName);
