@@ -24,6 +24,8 @@ public class Time {
         return calcTime(startTime, stopTime);
     }
 
+    // Calculate time based on driverToCustomerTime and customerToDestinationTime
+    // Convert the time to String for display purposes
     public String calcTime(long t1, long t2) {
         int time = (int) (t2 - t1);
         int timeInSec = (time / 1000); //this is an actual time in second, however it could be interpreted as minute as we assume min = sec and hour = min

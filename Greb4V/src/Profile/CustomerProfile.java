@@ -77,7 +77,7 @@ public class CustomerProfile extends Profile {
         this.customerToDestinationTime = calc.getTimeTaken(dis);
     }
 
-    //not sure
+    //Store the time it takes from driver to reach customer in driverToCustomerTime array
     public void driverToCustomer() {
         for (DriverProfile driverProfile : driver) {
             Integer time = calc.getTimeTaken(calc.distance(driverProfile.getInitialLatitude(),
