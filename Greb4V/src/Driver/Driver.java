@@ -33,8 +33,8 @@ public class Driver {
                     driver.remove(driverProfile);
                     break;
                 }
-                else if(driverProfile.getName().equals(driverName) && driverProfile.getStatus().equalsIgnoreCase("Unavailable")){
-                    System.out.println("Driver is currently picking up customer. Unable to remove driver");
+                else if(driverProfile.getName().equals(driverName) && driverProfile.getStatus().equalsIgnoreCase("Not Available")){
+                    System.out.println("\nDriver is currently picking up customer. Unable to remove driver");
                     break;
                 }
             }
